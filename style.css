@@ -1,0 +1,25 @@
+body {
+    background-image: url(pokemon-1624022_1280.jpg);
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+img {
+    width: 150px;
+}
+
+#pokedex{
+    color: white;
+}
+
+.infoContainer{
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    justify-content: center;
+}
+
+.container{
+    background-color: rgba(255,255,255,.5);
+    margin: 16px;
+}
