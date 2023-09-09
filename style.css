@@ -1,5 +1,5 @@
 body {
-    background-image: url(pokemon-1624022_1280.jpg);
+    background: linear-gradient(98.3deg, rgb(0, 0, 0) 10.6%, rgb(255, 0, 0) 97.7%);
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
@@ -8,18 +8,38 @@ img {
     width: 150px;
 }
 
-#pokedex{
-    color: white;
+#pokedex {
+    color: black;
 }
 
-.infoContainer{
+.infoContainer {
     display: flex;
     flex-wrap: wrap;
-    color: white;
+    color: black;
     justify-content: center;
 }
 
-.container{
-    background-color: rgba(255,255,255,.5);
-    margin: 16px;
+.container {
+    background: linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%);        margin: 16px;
+    border-radius: 16px 0;
+    padding: 16px;
+}
+
+.container h2 {
+    text-transform: capitalize;
+}
+
+.container p {
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.flexBox{
+    display: flex;
+    justify-content: space-around;
+}
+
+.id{
+    font-weight: lighter;
+    color: rgb(84, 84, 84);
 }
