@@ -1,63 +1,11 @@
-/*
-let allPokemon = []; // Eine Liste für alle geladenen Pokémon
-let nextUrl = 'https://pokeapi.co/api/v2/pokemon/';
-
-function init() {
-    loadAllPokemon();
-}
-
-async function loadAllPokemon() {
-    while (nextUrl) {
-        let response = await fetch(nextUrl);
-        let data = await response.json();
-
-        allPokemon = allPokemon.concat(data.results);
-
-        nextUrl = data.next;
-    }
-
-    renderAllPokemon();
-}
-
-async function loadPokemonDetails(url, nameElement, imageElement) {
-    let response = await fetch(url);
-    let pokemon = await response.json();
-
-    nameElement.textContent = pokemon.name;
-    imageElement.src = pokemon.sprites.other.home.front_default;
-}
-
-function renderAllPokemon() {
-    let infoContainer = document.getElementById('infoContainer');
-
-    for (let i = 0; i < 30; i++) {
-        let pokemonName = allPokemon[i].name;
-
-        let pokemonContainer = document.createElement('div');
-        let nameElement = document.createElement('h2');
-        let imageElement = document.createElement('img');
-
-        nameElement.textContent = pokemonName;
-        pokemonContainer.classList.add('container');
-
-        loadPokemonDetails(allPokemon[i].url, nameElement, imageElement);
-
-        pokemonContainer.appendChild(nameElement);
-        pokemonContainer.appendChild(imageElement);
-        infoContainer.appendChild(pokemonContainer);
-    }
-}
-
-init();
-*/
-
-
 let allPokemonData = [];
+
 
 async function init() {
     await loadAllPokemon();
     renderPokemonList();
 }
+
 
 async function loadAllPokemon() {
     let url = 'https://pokeapi.co/api/v2/pokemon?limit=50'; // Load the first 100 Pokemon
@@ -78,34 +26,41 @@ async function loadAllPokemon() {
     }));
 }
 
+
 function renderPokemonList() {
     let pokemonListContainer = document.getElementById('pokemonList');
     let html = '';
     let containerCount = 1;
 
     allPokemonData.forEach((pokemon) => {
-        let containerName = 'container' + containerCount;
 
-        html += '<div class="' + containerName + ' container">';
+        html += '<div class="' + ' container ';
+        
+        if (pokemon.details && pokemon.details.types && pokemon.details.types.length > 0) {
+            let firstType = pokemon.details.types[0].type.name.toLowerCase(); // Erster Typname in Kleinbuchstaben
+            // Hier fügen wir die Klasse des ersten Typs dem äußeren Container hinzu
+            html += 'container' + firstType + ' ';
+        }
+        
+        html += '">';
         html += '<img src="' + pokemon.details.sprites.other['official-artwork'].front_default + '">';
         html += '<p class="id">' + '#' + pokemon.details.id + '</p>'
         html += '<h2>' + pokemon.details.name + '</h2>';
         html += '<div class="flexBox">'
 
         if (pokemon.details && pokemon.details.types) {
-            pokemon.details.types.forEach((type) => {
-                html += '<p>' + type.type.name + '</p>';
+            // Durchlaufen Sie die Typen und fügen Sie jedem Typ eine Klasse hinzu
+            pokemon.details.types.forEach((type, index) => {
+                let typeName = type.type.name.toLowerCase(); // Typname in Kleinbuchstaben
+                // Hier setzen wir die Klassenbasis auf 'type' gefolgt vom Typnamen
+                html += '<p class="type' + typeName + '">' + typeName + '</p>';
             });
             html += '</div>'
         }
         html += '</div>';
-        containerCount++;
     });
     pokemonListContainer.innerHTML = html;
 }
-
-
-
 
 
 init();

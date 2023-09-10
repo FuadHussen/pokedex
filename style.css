@@ -19,10 +19,11 @@ img {
     justify-content: center;
 }
 
-.container {
-    background: linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%);        margin: 16px;
+.container {       
+    margin: 16px;
     border-radius: 16px 0;
     padding: 16px;
+    color: rgba(0,0,0,0.85);
 }
 
 .container h2 {
