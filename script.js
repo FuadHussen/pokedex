@@ -8,7 +8,7 @@ async function init() {
 
 
 async function loadAllPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon?limit=50'; // Load the first 100 Pokemon
+    let url = 'https://pokeapi.co/api/v2/pokemon?limit=100'; // Load the first 100 Pokemon
     let response = await fetch(url);
     let data = await response.json();
 

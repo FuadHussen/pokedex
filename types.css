@@ -1,95 +1,127 @@
-.typepoison{
+.typepoison {
     background-color: rgb(170, 7, 170);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typefire{
+.typefire {
     background-color: rgb(200, 70, 70);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typeflying{
+.typeflying {
     background-color: rgb(211, 241, 251);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typegrass{
+.typegrass {
     background-color: rgb(89, 213, 89);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typewater{
+.typewater {
     background-color: rgb(102, 102, 203);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typebug{
+.typebug {
     background-color: rgb(193, 125, 37);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typenormal{
+.typenormal {
     background-color: rgba(123, 123, 123, 0.275);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typeelectric{
+.typeelectric {
     background-color: rgb(255, 255, 0);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typeground{
+.typeground {
     background-color: rgb(213, 159, 89);
     padding: 8px;
     border-radius: 24px;
 }
 
-.typefairy{
+.typefairy {
     background-color: rgb(245, 142, 159);
     padding: 8px;
     border-radius: 24px;
 }
 
-.containerfairy{
+.typepsychic {
+    background-color: rgb(142, 114, 182);
+    padding: 8px;
+    border-radius: 24px;
+}
+
+.typefighting {
+    background-color: rgb(213, 159, 89, .8);
+    padding: 8px;
+    border-radius: 24px;
+}
+
+.typerock {
+    background-color: rgb(220, 148, 93);
+    padding: 8px;
+    border-radius: 24px;
+}
+
+
+.containerrock {
+    background-color: rgb(222, 175, 138);
+}
+
+
+.containerfighting {
+    background-color: rgb(218, 136, 49);
+}
+
+.containerpsychic {
+    background-color: rgb(168, 147, 197);
+}
+
+.containerfairy {
     background-color: pink
 }
 
-.containerground{
+.containerground {
     background-color: rgb(193, 125, 37)
 }
 
-.containerelectric{
+.containerelectric {
     background-color: rgb(255, 255, 138)
 }
 
-.containerpoison{
+.containerpoison {
     background-color: rgb(217, 0, 217)
 }
 
-.containernormal{
+.containernormal {
     background-color: rgb(200, 200, 200)
 }
 
-.containerbug{
+.containerbug {
     background-color: rgb(213, 159, 89)
 }
 
-.containergrass{
+.containergrass {
     background-color: rgb(187, 255, 187);
 }
 
-.containerfire{
+.containerfire {
     background-color: lightcoral;
 }
 
-.containerwater{
+.containerwater {
     background-color: rgb(167, 167, 254);
 }
