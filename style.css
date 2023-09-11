@@ -8,6 +8,40 @@ img {
     width: 150px;
 }
 
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 12px auto;
+}
+
+@media (min-width: 768px) {
+  button {
+    padding: 0 2.6rem;
+  }
+}
+
+button:hover {
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+    transition-duration: .1s;
+}
+
 #pokedex {
     color: black;
 }
@@ -19,15 +53,17 @@ img {
     justify-content: center;
 }
 
-.container {       
+.container {
     margin: 16px;
     border-radius: 16px 0;
     padding: 16px;
-    color: rgba(0,0,0,0.85);
+    color: rgba(0, 0, 0, 0.85);
+    width: 200px;
 }
 
 .container h2 {
     text-transform: capitalize;
+    text-align: center;
 }
 
 .container p {
@@ -35,12 +71,19 @@ img {
     font-weight: bolder;
 }
 
-.flexBox{
+.flexBox {
     display: flex;
     justify-content: space-around;
 }
 
-.id{
-    font-weight: lighter;
+.id {
+    font-weight: light;
     color: rgb(84, 84, 84);
+}
+
+.bgColor {
+    background-color: rgb(221, 221, 221);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

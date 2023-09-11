@@ -1,79 +1,133 @@
 .typepoison {
     background-color: rgb(170, 7, 170);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typefire {
     background-color: rgb(200, 70, 70);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typeflying {
     background-color: rgb(211, 241, 251);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typegrass {
     background-color: rgb(89, 213, 89);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typewater {
     background-color: rgb(102, 102, 203);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typebug {
     background-color: rgb(193, 125, 37);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typenormal {
     background-color: rgba(123, 123, 123, 0.275);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typeelectric {
     background-color: rgb(255, 255, 0);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typeground {
     background-color: rgb(213, 159, 89);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typefairy {
     background-color: rgb(245, 142, 159);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typepsychic {
     background-color: rgb(142, 114, 182);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typefighting {
     background-color: rgb(213, 159, 89, .8);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
 }
 
 .typerock {
     background-color: rgb(220, 148, 93);
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 24px;
+}
+
+.typeice{
+    background-color: rgb(81,196,231);
+    padding: 8px 12px;
+    border-radius: 24px;
+}
+
+.typeghost {
+    background-color: rgb(123, 98, 163);
+    padding: 8px 12px;
+    border-radius: 24px;
+}
+
+.typedragon {
+    background-color: rgb(241,110,87);
+    padding: 8px 12px;
+    border-radius: 24px;
+}
+
+.typedark {
+    background-color: rgb(112,112,112);
+    padding: 8px 12px;
+    border-radius: 24px;
+}
+
+.typesteel {
+    background-color: rgb(158,183,184);
+    padding: 8px 12px;
+    border-radius: 24px;
+}
+
+.containerflying {
+    background-color: rgb(223,220,196);
+}
+
+.containersteel {
+    background-color: rgb(136,168,181);
+}
+
+.containerdark {
+    background-color: rgb(35,44,44);
+}
+
+.containerdragon {
+    background-color: rgb(214,170,60);
+}
+
+.containerice {
+    background-color:rgb(134,80,156);
+}
+
+.containerghost {
+    background-color: rgb(84, 62, 120);
 }
 
 
