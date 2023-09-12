@@ -8,33 +8,37 @@ img {
     width: 150px;
 }
 
+h2 {
+    text-transform: capitalize;
+}
+
 button {
     display: flex;
     justify-content: center;
     align-items: center;
-  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-  border-radius: 8px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  height: 4rem;
-  padding: 0 1.6rem;
-  text-align: center;
-  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
-  transition: all .5s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  margin: 12px auto;
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    height: 4rem;
+    padding: 0 1.6rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 12px auto;
 }
 
 @media (min-width: 768px) {
-  button {
-    padding: 0 2.6rem;
-  }
+    button {
+        padding: 0 2.6rem;
+    }
 }
 
 button:hover {
@@ -59,11 +63,11 @@ button:hover {
     padding: 16px;
     color: rgba(0, 0, 0, 0.85);
     width: 200px;
+    cursor: pointer;
 }
 
 .container h2 {
     text-transform: capitalize;
-    text-align: center;
 }
 
 .container p {
@@ -73,7 +77,11 @@ button:hover {
 
 .flexBox {
     display: flex;
-    justify-content: space-around;
+}
+
+.flexBox p {
+    text-transform: capitalize;
+    font-weight: bold;
 }
 
 .id {
@@ -82,8 +90,15 @@ button:hover {
 }
 
 .bgColor {
-    background-color: rgb(221, 221, 221);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.details {
+    display: flex;
+}
+
+.details p {
+    padding-right: 14px;
 }
