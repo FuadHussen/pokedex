@@ -1,6 +1,9 @@
 let allPokemonData = [];
 let visiblePokemonCount = 30;
-
+let aboutHtml = '';
+let baseStatsHtml = '';
+let evolutionHtml = '';
+let movesHtml = '';
 
 
 
@@ -11,6 +14,17 @@ async function init() {
 
     const loadMoreButton = document.getElementById('loadMoreButton');
     loadMoreButton.addEventListener('click', loadMorePokemon);
+}
+
+
+async function loadBaseStatsData(pokemonId) {
+    let baseStatsUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+    let response = await fetch(baseStatsUrl);
+    let data = await response.json();
+
+    let baseStats = data.stats;
+
+    return baseStats;
 }
 
 
@@ -25,6 +39,21 @@ async function loadAllPokemon() {
         let details = await response.json();
         pokemon.details = details;
     }));
+}
+
+
+async function loadEvolutions(pokemonId) {
+    // Rufen Sie die Evolutionsdaten von der API ab
+    const evolutionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`;
+    const response = await fetch(evolutionUrl);
+    const data = await response.json();
+
+    // Hier erhalten Sie die relevanten Evolutionsdaten aus dem Datenobjekt
+    const evolutionChainUrl = data.evolution_chain.url;
+    const evolutionChainResponse = await fetch(evolutionChainUrl);
+    const evolutionChainData = await evolutionChainResponse.json();
+
+    return evolutionChainData;
 }
 
 
@@ -80,7 +109,7 @@ async function loadMorePokemon() {
 }
 
 
-function openCard(pokemonId) {
+async function openCard(pokemonId) {
     let selectedPokemon = allPokemonData.find((pokemon) => pokemon.details.id === pokemonId);
     if (selectedPokemon) {
         let modalContent = document.getElementById('modalContent');
@@ -97,22 +126,41 @@ function openCard(pokemonId) {
             });
         }
 
-        modalContent.innerHTML = `
-            <div class="containerCard">
-                <h2>${selectedPokemon.details.name}</h2>
-                <img src="${selectedPokemon.details.sprites.other['official-artwork'].front_default}">
-                <p>ID: #${selectedPokemon.details.id}</p>
-                <div class="details">
-                    <p>About</p>
-                    <p>Base Stats</p>
-                    <p>Evoloution</p>
-                    <p>Moves</p>
-                </div>
-                <div class="flexBox">
-                    ${typesHtml}
-                </div>
+        aboutHtml = `
+            <div class="about">
+                <p><b>Height:</b> ${selectedPokemon.details.height}</p>
+                <p><b>Weight:</b> ${selectedPokemon.details.weight}</p>
+                <p><b>Base Experience:</b> ${selectedPokemon.details.base_experience}</p>
             </div>
         `;
+
+        // Base Stats-Daten abrufen und in baseStatsHtml speichern
+        let baseStats = await loadBaseStatsData(pokemonId);
+        baseStatsHtml = `
+            <div class="base-stats">
+                <ul>
+                    <li>HP: ${baseStats[0].base_stat}</li>
+                    <li>Attack: ${baseStats[1].base_stat}</li>
+                    <li>Defense: ${baseStats[2].base_stat}</li>
+                    <li>Special Attack: ${baseStats[3].base_stat}</li>
+                    <li>Special Defense: ${baseStats[4].base_stat}</li>
+                    <li>Speed: ${baseStats[5].base_stat}</li>
+                </ul>
+            </div>
+        `;
+
+        let evolution = await loadEvolutions(pokemonId)
+        evolutionHtml = `
+        <ul>
+            <li class="evolution">Evolution 1: ${evolution.chain.species.name}</li>
+            <li class="evolution">Evolution 2: ${evolution.chain.evolves_to[0]?.species.name}</li>
+            <li class="evolution">Evolution 3: ${evolution.chain.evolves_to[0]?.evolves_to[0]?.species.name}</li>
+        </ul>
+    `;
+
+
+        // Verarbeiten Sie die erhaltenen Evolutionsdaten
+        modalContent.innerHTML = modalContents(selectedPokemon, aboutHtml, typesHtml, baseStatsHtml, evolutionHtml);
 
         let modal = document.getElementById('pokemonModal');
         modal.className = 'modal';
@@ -134,3 +182,33 @@ document.addEventListener('click', (event) => {
         closeCardModal();
     }
 });
+
+
+function modalContents(selectedPokemon, aboutHtml, typesHtml) {
+    return `
+    <div id="test" class="containerCard">
+        <h2>${selectedPokemon.details.name}</h2>
+        <img src="${selectedPokemon.details.sprites.other['official-artwork'].front_default}">
+        <p class="id">#${selectedPokemon.details.id}</p>
+        <div class="containerDetails">
+            <div id="details" class="details">
+                <p class="underlined-text" onclick="toggleTab('about')" data-tab="about"><b>About</b></p>
+                <p onclick="toggleTab('baseStats', ${selectedPokemon.details.id})" data-tab="baseStats"><b>Base Stats</b></p>
+                <p onclick="toggleTab('evolution')" data-tab="evolution"><b>Evolution</b></p>
+                <p onclick="toggleTab('moves')" data-tab="moves"><b>Moves</b></p>
+            </div>
+            <div id="baseStats" class="tab-content">
+            </div>
+            <div id="evolution" class="tab-content">
+            </div>
+            <div id="about" class="tab-content">
+                ${aboutHtml}
+            </div>
+        </div>
+        <div class="flexBox">
+            ${typesHtml}
+        </div>
+    </div>
+`;
+
+}
