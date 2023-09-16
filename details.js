@@ -1,8 +1,4 @@
-let lastClickedElement = null;
-
-
-
-function toggleTab(tab, pokemonId) {
+async function toggleTab(tab, pokemonId) {
     // Entfernen Sie die Unterstreichung von allen Tabs
     document.querySelectorAll('.details p').forEach((element) => {
         element.classList.remove('underlined-text');
@@ -23,14 +19,13 @@ function toggleTab(tab, pokemonId) {
         tabContent.style.display = 'block';
 
         if (tab === 'about') {
-            // Stellen Sie hier den Code ein, um die "About"-Daten anzuzeigen
-            tabContent.innerHTML = aboutHtml; // Fügen Sie die "About"-Daten hier ein
+            tabContent.innerHTML = aboutHtml; 
         } else if (tab === 'baseStats') {
-            // Rufen Sie die displayBaseStats-Funktion auf, wenn das "Base Stats"-Tab ausgewählt ist
-            tabContent.innerHTML = baseStatsHtml; // Fügen Sie die "Base Stats"-Daten hier ein
+            createStatsChart(pokemonId, tabContent);
         } else if (tab === 'evolution') {
-            // Zeigen Sie die Evolution-Daten an, wenn das "Evolution"-Tab ausgewählt ist
-            tabContent.innerHTML = evolutionHtml; tabContent.innerHTML = evolutionHtml;
+            tabContent.innerHTML = evolutionHtml
+        } else if (tab === 'moves') {
+            tabContent.innerHTML = movesHtml;
         }
     }
 }

@@ -113,6 +113,8 @@ button:hover {
     background-color: white;
     border-radius: 8px;
     padding: 8px;
+    max-height: 30vh;
+    overflow: auto;
 }
 
 .underlined-text {
@@ -120,5 +122,9 @@ button:hover {
 }
 
 .evolution {
+    text-transform: capitalize;
+}
+
+#moves{
     text-transform: capitalize;
 }

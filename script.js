@@ -57,6 +57,18 @@ async function loadEvolutions(pokemonId) {
 }
 
 
+async function loadMoves(pokemonId) {
+    const movesUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+    const response = await fetch(movesUrl);
+    const data = await response.json();
+
+    // Hier erhalten Sie die relevanten Moves-Daten aus dem Datenobjekt
+    const moves = data.moves;
+
+    return moves;
+}
+
+
 function renderPokemonList() {
     let pokemonListContainer = document.getElementById('pokemonList');
     let html = '';
@@ -125,27 +137,11 @@ async function openCard(pokemonId) {
                 }
             });
         }
-
         aboutHtml = `
             <div class="about">
                 <p><b>Height:</b> ${selectedPokemon.details.height}</p>
                 <p><b>Weight:</b> ${selectedPokemon.details.weight}</p>
                 <p><b>Base Experience:</b> ${selectedPokemon.details.base_experience}</p>
-            </div>
-        `;
-
-        // Base Stats-Daten abrufen und in baseStatsHtml speichern
-        let baseStats = await loadBaseStatsData(pokemonId);
-        baseStatsHtml = `
-            <div class="base-stats">
-                <ul>
-                    <li>HP: ${baseStats[0].base_stat}</li>
-                    <li>Attack: ${baseStats[1].base_stat}</li>
-                    <li>Defense: ${baseStats[2].base_stat}</li>
-                    <li>Special Attack: ${baseStats[3].base_stat}</li>
-                    <li>Special Defense: ${baseStats[4].base_stat}</li>
-                    <li>Speed: ${baseStats[5].base_stat}</li>
-                </ul>
             </div>
         `;
 
@@ -158,15 +154,29 @@ async function openCard(pokemonId) {
         </ul>
     `;
 
+        let moves = await loadMoves(pokemonId)
+        movesHtml = `
+    ${moves.map((move) => `<li>${move.move.name}</li>`).join('')}
+    `;
 
         // Verarbeiten Sie die erhaltenen Evolutionsdaten
-        modalContent.innerHTML = modalContents(selectedPokemon, aboutHtml, typesHtml, baseStatsHtml, evolutionHtml);
+        modalContent.innerHTML = modalContents(selectedPokemon, aboutHtml, typesHtml, baseStatsHtml, evolutionHtml, movesHtml);
 
         let modal = document.getElementById('pokemonModal');
         modal.className = 'modal';
 
         modal.style.display = 'flex';
     }
+}
+
+
+function generateMovesHTML(moves) {
+    let movesHtml = '<div class="moves">';
+    moves.forEach((move) => {
+        movesHtml += `<p>${move.move.name}</p>`;
+    });
+    movesHtml += '</div>';
+    return movesHtml;
 }
 
 
@@ -201,6 +211,8 @@ function modalContents(selectedPokemon, aboutHtml, typesHtml) {
             </div>
             <div id="evolution" class="tab-content">
             </div>
+            <div id="moves" class="tab-content">
+            </div>
             <div id="about" class="tab-content">
                 ${aboutHtml}
             </div>
@@ -210,5 +222,4 @@ function modalContents(selectedPokemon, aboutHtml, typesHtml) {
         </div>
     </div>
 `;
-
 }
