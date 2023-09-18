@@ -97,6 +97,7 @@ button:hover {
 
 .details {
     display: flex;
+    cursor: pointer;
 }
 
 .details p {

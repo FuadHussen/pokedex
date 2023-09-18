@@ -53,7 +53,22 @@ async function loadEvolutions(pokemonId) {
     const evolutionChainResponse = await fetch(evolutionChainUrl);
     const evolutionChainData = await evolutionChainResponse.json();
 
-    return evolutionChainData;
+    // Extrahiere die Namen der Pokémon für die Evolutionen
+    const evolution1Name = evolutionChainData.chain.species.name;
+    const evolution2Name = evolutionChainData.chain.evolves_to[0]?.species.name || null;
+    const evolution3Name = evolutionChainData.chain.evolves_to[0]?.evolves_to[0]?.species.name || null;
+
+    return {
+        evolution1Name,
+        evolution2Name,
+        evolution3Name
+    };
+}
+
+function getSpriteUrl(pokemonName) {
+    const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
+    const endpoint = `${pokemonName}/`;
+    return `${baseUrl}${endpoint}`;
 }
 
 
@@ -145,13 +160,16 @@ async function openCard(pokemonId) {
             </div>
         `;
 
-        let evolution = await loadEvolutions(pokemonId)
-        evolutionHtml = `
-        <ul>
-            <li class="evolution">Evolution 1: ${evolution.chain.species.name}</li>
-            <li class="evolution">Evolution 2: ${evolution.chain.evolves_to[0]?.species.name}</li>
-            <li class="evolution">Evolution 3: ${evolution.chain.evolves_to[0]?.evolves_to[0]?.species.name}</li>
-        </ul>
+        let evolution = await loadEvolutions(pokemonId);
+
+    evolutionHtml = `
+        <div class="evolution">
+            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution1Name)}">
+            <i class="fa-solid fa-angle-right"></i>
+            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution2Name)}">
+            <i class="fa-solid fa-angle-right"></i>
+            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution3Name)}">
+        </div>
     `;
 
         let moves = await loadMoves(pokemonId)
@@ -167,6 +185,17 @@ async function openCard(pokemonId) {
 
         modal.style.display = 'flex';
     }
+}
+
+
+function getPokemonImageUrl(pokemonName) {
+    // Durchsuche dein allPokemonData-Array nach dem passenden Pokémon und erhalte die Bild-URL
+    const pokemon = allPokemonData.find((p) => p.details.name === pokemonName);
+    if (pokemon) {
+        return pokemon.details.sprites.other['official-artwork'].front_default;
+    }
+    // Wenn das Pokémon nicht gefunden wurde, gib eine Standard-URL oder Fehlerbild-URL zurück
+    return 'Standard-Bild-URL';
 }
 
 

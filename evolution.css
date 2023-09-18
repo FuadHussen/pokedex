@@ -1,0 +1,15 @@
+#evolutionImg{
+    width: 100px;
+}
+
+.evolution{
+    display: flex;
+    justify-content: center;
+}
+
+.fa-solid{
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    width: 24px;
+}
