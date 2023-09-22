@@ -11,6 +11,7 @@ async function init() {
     await loadAllPokemon();
     renderPokemonList();
     openCard();
+    searchPokemon();
 
     const loadMoreButton = document.getElementById('loadMoreButton');
     loadMoreButton.addEventListener('click', loadMorePokemon);
@@ -84,36 +85,43 @@ async function loadMoves(pokemonId) {
 }
 
 
+function generatePokemonHTML(pokemon) {
+    let html = '';
+    html += `<div onclick="openCard(${pokemon.details.id})" data-pokemon-id="${pokemon.details.id}" class="container`;
+
+    if (pokemon.details && pokemon.details.types && pokemon.details.types.length > 0) {
+        let firstType = pokemon.details.types[0].type.name.toLowerCase();
+        html += ' container' + firstType;
+    }
+
+    html += '">';
+    html += '<div class="bgColor">';
+    html += `<img src="${pokemon.details.sprites.other['official-artwork'].front_default}">`;
+    html += '</div>';
+    html += `<p class="id">#${pokemon.details.id}</p>`;
+    html += `<h2>${pokemon.details.name}</h2>`;
+    html += '<div class="flexBox">';
+
+    if (pokemon.details && pokemon.details.types) {
+        pokemon.details.types.forEach((type) => {
+            let typeName = type.type.name.toLowerCase();
+            html += `<p class="type${typeName}">${typeName}</p>`;
+        });
+        html += '</div>';
+    }
+    html += '</div>';
+    return html;
+}
+
+
 function renderPokemonList() {
     let pokemonListContainer = document.getElementById('pokemonList');
     let html = '';
 
     allPokemonData.forEach((pokemon) => {
-
-        html += `<div onclick="openCard(${pokemon.details.id})" data-pokemon-id="${pokemon.details.id}" class="` + ' container '
-
-        if (pokemon.details && pokemon.details.types && pokemon.details.types.length > 0) {
-            let firstType = pokemon.details.types[0].type.name.toLowerCase();
-            html += 'container' + firstType + ' ';
-        }
-
-        html += '">';
-        html += '<div class="' + ' bgColor' + '">';
-        html += '<img src="' + pokemon.details.sprites.other['official-artwork'].front_default + '">';
-        html += '</div>'
-        html += '<p class="id">' + '#' + pokemon.details.id + '</p>'
-        html += '<h2>' + pokemon.details.name + '</h2>';
-        html += '<div class="flexBox">'
-
-        if (pokemon.details && pokemon.details.types) {
-            pokemon.details.types.forEach((type) => {
-                let typeName = type.type.name.toLowerCase();
-                html += '<p class="type' + typeName + '">' + typeName + '</p>';
-            });
-            html += '</div>'
-        }
-        html += '</div>';
+        html += generatePokemonHTML(pokemon);
     });
+
     pokemonListContainer.innerHTML = html;
 }
 
@@ -133,79 +141,6 @@ async function loadMorePokemon() {
     visiblePokemonCount += 30;
     await loadAllPokemon();
     renderPokemonList();
-}
-
-
-async function openCard(pokemonId) {
-    let selectedPokemon = allPokemonData.find((pokemon) => pokemon.details.id === pokemonId);
-    if (selectedPokemon) {
-        let modalContent = document.getElementById('modalContent');
-        modalContent.innerHTML = '';
-
-        let typesHtml = '';
-        if (selectedPokemon.details && selectedPokemon.details.types) {
-            selectedPokemon.details.types.forEach((type, index) => {
-                let typeName = type.type.name.toLowerCase();
-                typesHtml += `<p class="type${typeName}">${typeName}</p>`;
-                if (index === 0) {
-                    modalContent.className = `modal-content container${typeName}`;
-                }
-            });
-        }
-        aboutHtml = `
-            <div class="about">
-                <p><b>Height:</b> ${selectedPokemon.details.height}</p>
-                <p><b>Weight:</b> ${selectedPokemon.details.weight}</p>
-                <p><b>Base Experience:</b> ${selectedPokemon.details.base_experience}</p>
-            </div>
-        `;
-
-        let evolution = await loadEvolutions(pokemonId);
-
-    evolutionHtml = `
-        <div class="evolution">
-            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution1Name)}">
-            <i class="fa-solid fa-angle-right"></i>
-            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution2Name)}">
-            <i class="fa-solid fa-angle-right"></i>
-            <img id="evolutionImg" src="${getPokemonImageUrl(evolution.evolution3Name)}">
-        </div>
-    `;
-
-        let moves = await loadMoves(pokemonId)
-        movesHtml = `
-    ${moves.map((move) => `<li>${move.move.name}</li>`).join('')}
-    `;
-
-        // Verarbeiten Sie die erhaltenen Evolutionsdaten
-        modalContent.innerHTML = modalContents(selectedPokemon, aboutHtml, typesHtml, baseStatsHtml, evolutionHtml, movesHtml);
-
-        let modal = document.getElementById('pokemonModal');
-        modal.className = 'modal';
-
-        modal.style.display = 'flex';
-    }
-}
-
-
-function getPokemonImageUrl(pokemonName) {
-    // Durchsuche dein allPokemonData-Array nach dem passenden Pokémon und erhalte die Bild-URL
-    const pokemon = allPokemonData.find((p) => p.details.name === pokemonName);
-    if (pokemon) {
-        return pokemon.details.sprites.other['official-artwork'].front_default;
-    }
-    // Wenn das Pokémon nicht gefunden wurde, gib eine Standard-URL oder Fehlerbild-URL zurück
-    return 'Standard-Bild-URL';
-}
-
-
-function generateMovesHTML(moves) {
-    let movesHtml = '<div class="moves">';
-    moves.forEach((move) => {
-        movesHtml += `<p>${move.move.name}</p>`;
-    });
-    movesHtml += '</div>';
-    return movesHtml;
 }
 
 
@@ -251,4 +186,34 @@ function modalContents(selectedPokemon, aboutHtml, typesHtml) {
         </div>
     </div>
 `;
+}
+
+
+function searchPokemon() {
+    const input = document.getElementById('searchPokemon');
+
+    input.addEventListener('keyup', (event) => {
+        const searchTerm = event.target.value.trim().toLowerCase();
+        const containers = document.querySelectorAll('.container');
+
+        containers.forEach((container) => {
+            const pokemonName = container.querySelector('h2').textContent.toLowerCase();
+            const pokemonId = container.querySelector('.id').textContent.toLowerCase(); // Holen Sie sich die ID des Pokemons im Container
+
+            // Überprüfe, ob der Name des Pokemon im Container oder die ID den Suchbegriff enthält
+            if (pokemonName.includes(searchTerm) || pokemonId.includes(searchTerm)) {
+                container.style.display = 'block'; // Zeige den Container
+            } else {
+                container.style.display = 'none'; // Verstecke den Container
+            }
+        });
+    });
+}
+
+
+function up(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Für einen sanften Scroll-Effekt
+    });
 }

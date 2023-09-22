@@ -12,38 +12,10 @@ h2 {
     text-transform: capitalize;
 }
 
-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-    border-radius: 8px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    height: 4rem;
-    padding: 0 1.6rem;
-    text-align: center;
-    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
-    transition: all .5s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    margin: 12px auto;
-}
-
-@media (min-width: 768px) {
-    button {
-        padding: 0 2.6rem;
-    }
-}
-
-button:hover {
-    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
-    transition-duration: .1s;
+#loadMoreButton {
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
 }
 
 #pokedex {
@@ -62,8 +34,14 @@ button:hover {
     border-radius: 16px 0;
     padding: 16px;
     color: rgba(0, 0, 0, 0.85);
-    width: 200px;
+    width: 200px!important;
     cursor: pointer;
+    box-sizing: content-box;
+}
+
+.container:hover{
+    box-shadow: rgba(255, 255, 255) 0px 7px 29px 0px;
+    transition: .225s;
 }
 
 .container h2 {
@@ -114,8 +92,8 @@ button:hover {
     background-color: white;
     border-radius: 8px;
     padding: 8px;
-    max-height: 30vh;
     overflow: auto;
+    margin-bottom: 8px;
 }
 
 .underlined-text {
@@ -128,4 +106,45 @@ button:hover {
 
 #moves{
     text-transform: capitalize;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.modal-content{
+    display: block!important;
+    width: auto!important;
+}
+
+.d-grid{
+    margin: 32px 0;
+}
+
+#myChart{
+    display: none;
+}
+
+.pokeBall{
+    width: 64px;
+}
+
+.pokeBar{
+    display: flex;
+    justify-content: space-evenly!important;
+}
+
+nav{
+    position: fixed;
+}
+
+.fa-circle-up{
+    position: absolute;
+    right: 15%;
+    font-size: 40px;
+    cursor: pointer;
+    font-weight: 800;
+    color: #0D6EFD;
+}
+
+.up{
+    display: contents;
 }
