@@ -211,6 +211,19 @@ function searchPokemon() {
 }
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    var searchPokemon = document.getElementById("searchPokemon");
+
+    // Das Klickereignis für das "x" abfangen
+    searchPokemon.addEventListener("input", function(event) {
+      if (event.target.value === "") {
+        // Das Input-Feld ist leer, tun Sie hier, was Sie möchten
+        renderPokemonList();
+      }
+    });
+  });
+
+
 function up(){
     window.scrollTo({
         top: 0,
